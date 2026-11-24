@@ -13,12 +13,22 @@ export function CartePicto({ proposition, taille = 'normale', className = '' }: 
   // Si l'image ne charge pas (pas de réseau…), on garde le mot : le tapis reste utilisable.
   const [imageCassee, setImageCassee] = useState(false)
   return (
-    <div className={`picto picto--${taille} ${className}`}>
-      {imageCassee ? (
-        <div className="picto__secours" aria-hidden="true">?</div>
-      ) : (
-        <img src={proposition.image.src} alt="" draggable={false} onError={() => setImageCassee(true)} />
-      )}
+    <div
+      className={`picto picto--${taille} ${!proposition.image ? 'picto--texte-seul' : ''} ${className}`}
+    >
+      {proposition.image &&
+        (imageCassee ? (
+          <div className="picto__secours" aria-hidden="true">
+            ?
+          </div>
+        ) : (
+          <img
+            src={proposition.image.src}
+            alt=""
+            draggable={false}
+            onError={() => setImageCassee(true)}
+          />
+        ))}
       <span className="picto__libelle">{proposition.libelle}</span>
     </div>
   )

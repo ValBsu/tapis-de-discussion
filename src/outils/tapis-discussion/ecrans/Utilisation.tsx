@@ -13,7 +13,7 @@ import { GrosBouton } from '../../../commun/composants/GrosBouton'
 import { ATTRIBUTION_ARASAAC } from '../../../commun/pictos/arasaac'
 import { CartePicto, PictoGlissable } from '../composants/Picto'
 import { EncartQuestion } from '../composants/EncartQuestion'
-import { ZoneChoix } from '../composants/ZoneChoix'
+import { FondZone, ZoneChoix } from '../composants/ZoneChoix'
 import { estTermine, estUneZone, placer, propositionEnCours, propositionsDansZone } from '../logique/tapis'
 import type { Placements, Tapis, Zone } from '../types'
 import '../tapis.css'
@@ -64,11 +64,22 @@ export function Utilisation({ tapis, onTerminer }: Props) {
     >
       <main className="tapis">
         <header className="tapis__haut">
+          <button className="tapis__accueil" type="button" onClick={onTerminer}>
+            Accueil
+          </button>
           {tapis.photoJeune ? (
             <img className="tapis__photo" src={tapis.photoJeune} alt="Photo du jeune" />
           ) : (
             <div className="tapis__photo tapis__photo--vide">Photo du jeune</div>
           )}
+          <GrosBouton
+            className="tapis__export"
+            variante="secondaire"
+            onClick={() => window.print()}
+            title="Dans la fenêtre d’impression, choisissez « Enregistrer au format PDF »."
+          >
+            Exporter en PDF
+          </GrosBouton>
         </header>
 
         <div className="tapis__milieu">
@@ -85,9 +96,6 @@ export function Utilisation({ tapis, onTerminer }: Props) {
             )}
             {termine && (
               <div className="tapis__fin apparition">
-                <GrosBouton disabled title="Arrive à l'étape 5">
-                  Export PDF
-                </GrosBouton>
                 <GrosBouton variante="secondaire" onClick={onTerminer}>
                   Terminer
                 </GrosBouton>
@@ -104,6 +112,41 @@ export function Utilisation({ tapis, onTerminer }: Props) {
           <EncartQuestion question={tapis.question} />
           <p className="tapis__attribution">{ATTRIBUTION_ARASAAC}</p>
         </footer>
+
+        <section className="tapis tapis__impression" aria-label="Aperçu du tapis à imprimer">
+          <header className="tapis__haut">
+            <span aria-hidden="true" />
+            {tapis.photoJeune ? (
+              <img className="tapis__photo" src={tapis.photoJeune} alt="" />
+            ) : (
+              <div className="tapis__photo tapis__photo--vide">Photo du jeune</div>
+            )}
+            <span aria-hidden="true" />
+          </header>
+
+          <div className="tapis__milieu">
+            <section className="zone zone--aime" aria-label="J’aime">
+              <FondZone zone="aime" />
+              <div className="zone__pictos" />
+            </section>
+
+            <div className="tapis__centre tapis__centre--impression">
+              {tapis.propositions.map((proposition) => (
+                <CartePicto key={proposition.id} proposition={proposition} />
+              ))}
+            </div>
+
+            <section className="zone zone--aimePas" aria-label="J’aime pas">
+              <FondZone zone="aimePas" />
+              <div className="zone__pictos" />
+            </section>
+          </div>
+
+          <footer className="tapis__bas">
+            <EncartQuestion question={tapis.question} />
+            <p className="tapis__attribution">{ATTRIBUTION_ARASAAC}</p>
+          </footer>
+        </section>
       </main>
 
       {/* La copie du picto qui suit le doigt, au-dessus de tout. */}

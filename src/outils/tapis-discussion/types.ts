@@ -10,7 +10,7 @@ export type Zone = 'aime' | 'aimePas'
 export interface Proposition {
   id: string
   libelle: string
-  image: Image
+  image?: Image
 }
 
 /** Tout ce que le professionnel prépare avant la séance. */

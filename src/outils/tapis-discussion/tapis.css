@@ -13,8 +13,37 @@
 }
 
 .tapis__haut {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.tapis__accueil {
+  justify-self: start;
+  min-height: 44px;
+  padding: 6px 12px;
+  color: var(--doux);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.tapis__accueil:hover,
+.tapis__accueil:focus-visible {
+  color: var(--vert-fonce);
+  background: var(--carte);
+  border-color: var(--bord);
+}
+
+.tapis__export {
+  justify-self: end;
+  min-height: 48px;
+  padding: 8px 14px;
+  font-size: 0.95rem;
 }
 
 .tapis__photo {
@@ -66,6 +95,10 @@
   font-size: 0.7rem;
   color: var(--doux);
   text-align: center;
+}
+
+.tapis__impression {
+  display: none;
 }
 
 /* ---------- Zones j'aime / j'aime pas ---------- */
@@ -165,11 +198,23 @@
   --taille-image: clamp(120px, 15vw, 180px);
 }
 
+.picto--texte-seul {
+  min-width: 150px;
+  min-height: 88px;
+  align-content: center;
+  padding: 18px;
+}
+
+.picto--grande.picto--texte-seul {
+  min-width: 220px;
+  min-height: 130px;
+}
+
 .picto__libelle {
   font-size: 1.05rem;
   font-weight: 700;
   text-align: center;
-  max-width: calc(var(--taille-image) + 20px);
+  max-width: calc(var(--taille-image, 100%) + 20px);
   line-height: 1.15;
 }
 
@@ -252,5 +297,111 @@
 @media (orientation: portrait) {
   .tapis__milieu {
     grid-template-columns: 1fr minmax(170px, 26%) 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .tapis__export {
+    max-width: 120px;
+    min-height: 44px;
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
+}
+
+@page {
+  size: A4 landscape;
+  margin: 10mm;
+}
+
+@media print {
+  html,
+  body,
+  #racine {
+    width: 100%;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+
+  body > * {
+    display: none !important;
+  }
+
+  #racine {
+    display: block !important;
+  }
+
+  #racine > .tapis {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    display: block;
+    padding: 0;
+    overflow: hidden;
+    color: #1e2d28;
+    background: #fff;
+  }
+
+  #racine > .tapis > :not(.tapis__impression) {
+    display: none !important;
+  }
+
+  #racine > .tapis > .tapis__impression {
+    width: 100%;
+    height: 190mm;
+    min-height: 190mm;
+    display: grid !important;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 3mm;
+    padding: 0;
+    overflow: hidden;
+    color: #1e2d28;
+    background: #fff;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  #racine > .tapis > .tapis__impression .tapis__milieu {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(60mm, 28%) minmax(0, 1fr);
+    gap: 3mm;
+  }
+
+  #racine > .tapis > .tapis__impression .tapis__centre--impression {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap: 2mm;
+    padding: 2mm;
+    overflow: hidden;
+  }
+
+  #racine > .tapis > .tapis__impression .picto {
+    width: 32mm;
+    max-width: 32mm;
+    padding: 1.5mm;
+    border-width: 0.5mm;
+    border-radius: 2mm;
+    box-shadow: none;
+  }
+
+  #racine > .tapis > .tapis__impression .picto img,
+  #racine > .tapis > .tapis__impression .picto__secours {
+    width: 14mm;
+    height: 14mm;
+  }
+
+  #racine > .tapis > .tapis__impression .picto__libelle {
+    max-width: 29mm;
+    font-size: 8pt;
+  }
+
+  #racine > .tapis > .tapis__impression .picto--texte-seul {
+    min-width: 28mm;
+    min-height: 18mm;
+    align-content: center;
   }
 }

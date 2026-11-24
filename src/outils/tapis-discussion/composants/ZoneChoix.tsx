@@ -18,12 +18,18 @@ export function ZoneChoix({ zone, flou, children }: Props) {
   const classes = ['zone', `zone--${zone}`, flou && !isOver ? 'zone--floue' : '', isOver ? 'zone--survol' : '']
   return (
     <section ref={setNodeRef} className={classes.join(' ')} aria-label={TEXTES[zone]}>
-      <div className="zone__fond" aria-hidden="true">
-        <Pouce vers={zone === 'aime' ? 'haut' : 'bas'} />
-        <span className="zone__titre">{TEXTES[zone]}</span>
-      </div>
+      <FondZone zone={zone} />
       <div className="zone__pictos">{children}</div>
     </section>
+  )
+}
+
+export function FondZone({ zone }: { zone: Zone }) {
+  return (
+    <div className="zone__fond" aria-hidden="true">
+      <Pouce vers={zone === 'aime' ? 'haut' : 'bas'} />
+      <span className="zone__titre">{TEXTES[zone]}</span>
+    </div>
   )
 }
 

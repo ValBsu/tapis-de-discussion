@@ -1,2 +1,5 @@
 # PDF commun
-Outils jsPDF réutilisables (polices, mise en page, attribution). Adaptés de TLA Flash à l'étape 5.
+
+L'export du tapis utilise la boîte d'impression du navigateur (`window.print`) : choisir
+« Enregistrer au format PDF » pour télécharger le document. Cela évite d'ajouter une dépendance PDF
+et fonctionne aussi sur tablette.

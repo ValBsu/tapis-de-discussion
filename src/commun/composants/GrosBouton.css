@@ -9,13 +9,17 @@
 }
 
 .gros-bouton--principal {
-  background: var(--encre);
+  background: var(--vert-fonce);
   color: #fff;
 }
 
 .gros-bouton--secondaire {
-  background: var(--carte);
-  color: var(--encre);
+  background: #f7f6ef;
+  color: var(--vert-fonce);
+}
+
+.gros-bouton:hover:not(:disabled) {
+  filter: brightness(1.08);
 }
 
 .gros-bouton:disabled {

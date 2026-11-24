@@ -3,17 +3,18 @@
 :root {
   /* Couleurs (variables CSS, "design tokens") – contrastes vérifiés avec le texte blanc */
   --vert: #1b7a3a;
-  --vert-clair: #e3f4e8;
+  --vert-fonce: #103b32;
+  --vert-clair: #e4efe8;
   --rouge: #b3261e;
   --rouge-clair: #fbe5e3;
-  --encre: #1f2933;
-  --fond: #f4f1ea;
+  --encre: #1e2d28;
+  --fond: #f5f4ee;
   --carte: #ffffff;
-  --bord: #d6d0c4;
-  --doux: #5b6670;
+  --bord: #d5ddd7;
+  --doux: #65736c;
 
-  --rayon: 20px;
-  --ombre: 0 6px 18px rgb(0 0 0 / 0.12);
+  --rayon: 18px;
+  --ombre: 0 5px 16px rgb(20 49 39 / 0.1);
   --toucher-min: 64px; /* taille minimale d'une zone tactile */
 
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
