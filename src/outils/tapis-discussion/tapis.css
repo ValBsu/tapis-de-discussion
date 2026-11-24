@@ -1,0 +1,256 @@
+/* ---------- Mise en page générale (grille CSS, "CSS Grid") ---------- */
+
+.tapis {
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* haut : photo / milieu : zones / bas : question */
+  gap: 12px;
+  padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right))
+    max(8px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  user-select: none;
+  -webkit-user-select: none;
+  overflow: hidden;
+}
+
+.tapis__haut {
+  display: flex;
+  justify-content: center;
+}
+
+.tapis__photo {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--carte);
+  box-shadow: var(--ombre);
+}
+
+.tapis__photo--vide {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--doux);
+  background: var(--carte);
+  border: 3px dashed var(--bord);
+  box-shadow: none;
+}
+
+/* Trois colonnes : zone verte | couloir neutre | zone rouge */
+.tapis__milieu {
+  display: grid;
+  grid-template-columns: 1fr minmax(190px, 22%) 1fr;
+  gap: 12px;
+  min-height: 0;
+}
+
+.tapis__centre {
+  display: grid;
+  place-items: center;
+}
+
+.tapis__fin {
+  display: grid;
+  gap: 16px;
+}
+
+.tapis__bas {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+
+.tapis__attribution {
+  margin: 0;
+  font-size: 0.7rem;
+  color: var(--doux);
+  text-align: center;
+}
+
+/* ---------- Zones j'aime / j'aime pas ---------- */
+
+.zone {
+  position: relative;
+  border-radius: var(--rayon);
+  overflow: hidden;
+  outline: 6px solid transparent;
+  outline-offset: -6px;
+  transition: outline-color 150ms;
+}
+
+.zone__fond {
+  position: absolute;
+  inset: -12px; /* déborde un peu : évite les bords flous et pâles */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 28px;
+  color: #fff;
+  transition: filter 400ms ease;
+}
+
+.zone--aime .zone__fond {
+  background: var(--vert);
+}
+
+.zone--aimePas .zone__fond {
+  background: var(--rouge);
+}
+
+/* Flou léger : on garde le pouce reconnaissable pour que le jeune sache où est quoi. */
+.zone--floue .zone__fond {
+  filter: blur(3px) saturate(0.55) brightness(1.08);
+}
+
+.zone--survol {
+  outline-color: #ffd43b;
+}
+
+.zone__pouce {
+  width: 84px;
+  height: 84px;
+}
+
+.zone__titre {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.zone__pictos {
+  position: relative; /* au-dessus du fond : les pictos posés restent nets */
+  height: 100%;
+  padding: 150px 16px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: center;
+  gap: 12px;
+  overflow-y: auto; /* provisoire : si beaucoup de pictos, on peut faire défiler la zone */
+}
+
+/* ---------- Pictos ---------- */
+
+.picto {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 10px;
+  background: var(--carte);
+  border-radius: 16px;
+  box-shadow: var(--ombre);
+  border: 3px solid var(--encre);
+}
+
+.picto img,
+.picto__secours {
+  width: var(--taille-image);
+  height: var(--taille-image);
+  object-fit: contain;
+}
+
+.picto__secours {
+  display: grid;
+  place-items: center;
+  font-size: 2.5rem;
+  color: var(--doux);
+}
+
+.picto--normale {
+  --taille-image: clamp(64px, 8vw, 104px);
+}
+
+.picto--grande {
+  --taille-image: clamp(120px, 15vw, 180px);
+}
+
+.picto__libelle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: center;
+  max-width: calc(var(--taille-image) + 20px);
+  line-height: 1.15;
+}
+
+.picto--grande .picto__libelle {
+  font-size: 1.3rem;
+}
+
+.picto--en-main {
+  transform: scale(1.06) rotate(-2deg);
+  box-shadow: 0 16px 36px rgb(0 0 0 / 0.3);
+  cursor: grabbing;
+}
+
+.picto--pose {
+  animation: pose 250ms ease-out;
+}
+
+.glissable {
+  touch-action: none; /* indispensable : sinon Safari fait défiler la page au lieu de glisser */
+  cursor: grab;
+}
+
+.glissable--fantome {
+  opacity: 0.25;
+}
+
+/* ---------- Encart de la question ---------- */
+
+.question {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: min(760px, 100%);
+  padding: 12px 24px;
+  background: var(--carte);
+  border: 3px solid var(--encre);
+  border-radius: var(--rayon);
+  box-shadow: var(--ombre);
+}
+
+.question__image {
+  width: 88px;
+  height: 88px;
+  object-fit: contain;
+}
+
+.question__texte {
+  margin: 0;
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+  font-weight: 800;
+}
+
+/* ---------- Animations douces ---------- */
+
+.apparition {
+  animation: apparition 450ms ease-out 250ms both;
+}
+
+@keyframes apparition {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pose {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* iPad tenu à la verticale : couloir central plus étroit */
+@media (orientation: portrait) {
+  .tapis__milieu {
+    grid-template-columns: 1fr minmax(170px, 26%) 1fr;
+  }
+}

@@ -1,0 +1,29 @@
+.gros-bouton {
+  min-height: var(--toucher-min);
+  padding: 0 28px;
+  border-radius: 16px;
+  border: 2px solid var(--encre);
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gros-bouton--principal {
+  background: var(--encre);
+  color: #fff;
+}
+
+.gros-bouton--secondaire {
+  background: var(--carte);
+  color: var(--encre);
+}
+
+.gros-bouton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.gros-bouton:focus-visible {
+  outline: 4px solid #2563eb;
+  outline-offset: 3px;
+}

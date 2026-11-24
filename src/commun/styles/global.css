@@ -1,0 +1,63 @@
+/* Réglages communs à tous les outils : couleurs, tailles, comportement tactile. */
+
+:root {
+  /* Couleurs (variables CSS, "design tokens") – contrastes vérifiés avec le texte blanc */
+  --vert: #1b7a3a;
+  --vert-clair: #e3f4e8;
+  --rouge: #b3261e;
+  --rouge-clair: #fbe5e3;
+  --encre: #1f2933;
+  --fond: #f4f1ea;
+  --carte: #ffffff;
+  --bord: #d6d0c4;
+  --doux: #5b6670;
+
+  --rayon: 20px;
+  --ombre: 0 6px 18px rgb(0 0 0 / 0.12);
+  --toucher-min: 64px; /* taille minimale d'une zone tactile */
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--encre);
+  background: var(--fond);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#racine {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  /* Empêche le zoom par double-tap et le "rebond" de Safari pendant les glisser. */
+  touch-action: manipulation;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+img {
+  /* Empêche le menu « Enregistrer l'image » de l'iPad lors d'un appui long. */
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+button {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
